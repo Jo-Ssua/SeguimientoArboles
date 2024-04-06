@@ -8,97 +8,24 @@ public class Control {
     Tree tree = new Tree();
 
     public void crearListaOrdenada(){
-        l.crearListaSimple("a");
-        l.crearListaSimple("b");
-        l.crearListaSimple("c");
-        l.crearListaSimple("d");
-        l.crearListaSimple("e");
-        l.crearListaSimple("f");
-
-        System.out.println(l.getListaSimple());
-
-    }
-
-    public void crearArrayList(){
-        ArrayList<String> t = new ArrayList<String>();
-        NodoLista n = l.getFirstSimple();
-
-        while (n!= null){
-            t.add(n.getInfo());
-            n = n.getNext();
-        }
-
-        darArreglo(t);
-    }
-
-    public void darArreglo(ArrayList<String> t){
-        int mid = t.size()/2;
-        int i = 0;
-        int medio = mid;
-        tree.insert(t.get(mid));
-
-        while(i < t.size()){
-            if(i < medio){
-                medio = medio/2;
-                tree.insert(t.get(medio));
-            }else{
-                medio = (mid+t.size())/2;
-                tree.insert(t.get(medio));
-
-            }
-            i++;
-        }
-
-
-
+        l.crearListaSimple("k");
+        l.crearListaSimple("l");
+        l.crearListaSimple("m");
+        l.crearListaSimple("n");
+        l.crearListaSimple("o");
+        l.crearListaSimple("p");
+        l.crearListaSimple("q");
 
     }
-
-    public void contar(){
-        NodoLista temp = l.getFirstSimple();
-
-        int counter = 0;
-        int inicio = 0;
-
-        while (temp != null){
-            counter++;
-            temp = temp.getNext();
-
-        }
-
-        darInformacionALista(inicio,counter,0, counter, counter/2);
-
-
-    }
-
-    public void darInformacionALista(int inicio, int finVar, int contador, int fin, int medio){
-        NodoLista temp = l.getFirstSimple();
-        int mid = finVar/2;
-        int i = 0;
-        if(contador == fin || contador == medio){
-            return;
-        }
-
-        while (i < mid && temp != null){
-            System.out.println(i);
-            i++;
-
-            temp = temp.getNext();
-        }
-
-        if(temp != null){
-            System.out.println(temp.getInfo());
-            tree.insert(temp.getInfo());
-        }
-
-        darInformacionALista(0,mid,contador+1, fin, medio);
-        darInformacionALista(mid, finVar,contador+1, fin, medio);
-
-
-
-    }
-
     public String getArbol(){
+        return tree.reverseInOrder();
+    }
+
+    public String getLista(){
+        return l.getListaSimple();
+    }
+
+    public String inOrder(){
         return tree.inOrder();
     }
 
@@ -107,4 +34,66 @@ public class Control {
     }
 
 
+    public void crearArbolBalanceadoDesdeLista() {
+        int n = contarNodos(l.getFirstSimple());
+        tree.setRoot(crearArbolBalanceado(l.getFirstSimple(), n));
+    }
+
+    private int contarNodos(NodoLista head) {
+        int count = 0;
+        NodoLista current = head;
+        while (current != null) {
+            count++;
+            current = current.getNext();
+        }
+        return count;
+    }
+
+    private NodoArbol crearArbolBalanceado(NodoLista start, int n) {
+        if (n <= 0) {
+            return null;
+        }
+        NodoArbol leftChild = crearArbolBalanceado(start, ((n)/ 2));
+
+
+        //Setea la raíz
+        NodoArbol root = new NodoArbol(start.getInfo());
+        //Subarbol izq
+        root.setLeft(leftChild);
+
+        if (start.getNext() != null) {
+            start.setInfo(start.getNext().getInfo());
+            start.setNext(start.getNext().getNext());
+        } else {
+            start = null;
+        }
+        //SubArbol derec
+        root.setRight(crearArbolBalanceado(start, n - (n / 2)-1  ));
+
+        return root;
+    }
+
+    public String validateBalancedTree(){
+
+        int theoricalHeight = (int)(Math.log(l.getSize())/Math.log(2));
+        if(theoricalHeight == getHeight()){
+
+            return "El arbol esta balanceado";
+        }else{
+            return "te tiraste el seguimiento :( ";
+        }
+
+
+
+
+    }
+
+
+
+    public int getHeight(){
+
+        return tree.getHeight();
+
+
+    }
 }

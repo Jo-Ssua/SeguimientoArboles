@@ -54,6 +54,36 @@ public class NodoArbol {
             return node;
         }
 
+        public NodoArbol findMax(NodoArbol node){
+            while (node.left != null) {
+                node = node.left;
+            }
+            return node;
+        }
+
+        public int findHeight(NodoArbol nodo){
+            int leftHeight;
+            int rightHeight;
+            if(nodo == null){
+                return -1;
+            }else{
+                leftHeight = findHeight(nodo.left);
+                rightHeight = findHeight(nodo.right);
+
+
+
+            }
+            return Math.max(leftHeight, rightHeight)+1;
+
+
+
+        }
+
+
+
+
+
+
 
 
 
@@ -99,6 +129,18 @@ public class NodoArbol {
             return msg;
         }
 
+        public String reverseInOrden(){
+            String msg = "";
+            if (this.right != null) {
+                msg=this.right.inOrder();
+            }
+            msg+=this.toString()+" ";
+            if (this.left != null) {
+                msg+=this.left.inOrder();
+            }
+            return msg;
+
+        }
 
         public String toString() {
             return " "+value;

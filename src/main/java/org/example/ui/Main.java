@@ -8,9 +8,19 @@ public class Main {
     public static void main(String[] args) {
 
         c.crearListaOrdenada();
-        c.crearArrayList();
+
+        System.out.println("Lista original");
+        System.out.println(c.getLista());
+
+        c.crearArbolBalanceadoDesdeLista();
+
+        System.out.println();
+        System.out.println("Arbol creado");
         System.out.println(c.getArbol());
-        System.out.println(c.getRoot());
+        System.out.println(c.validateBalancedTree());
+
+        System.out.println("\nAltura");
+        System.out.println(c.getHeight());
 
     }
 }

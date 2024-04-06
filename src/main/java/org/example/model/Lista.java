@@ -4,6 +4,7 @@ public class Lista {
 
     private NodoLista firstSimple;
     private NodoLista lastSimple;
+    private int size;
 
     public Lista(){
 
@@ -14,12 +15,15 @@ public class Lista {
         if (firstSimple == null){
             firstSimple = temp;
             lastSimple = firstSimple;
-        }else{
-            if(firstSimple.getNext() == null){
+            size++;
+        }else {
+            if (firstSimple.getNext() == null) {
                 firstSimple.setNext(temp);
             }
             lastSimple.setNext(temp);
             lastSimple = temp;
+            size++;
+
         }
 
     }
@@ -50,5 +54,13 @@ public class Lista {
 
     public void setLastSimple(NodoLista lastSimple) {
         this.lastSimple = lastSimple;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
